@@ -15,4 +15,12 @@
 use structopt::StructOpt;
 
 #[derive(StructOpt)]
-struct Opts {}
+pub struct Opts {
+    #[structopt(
+        short,
+        long,
+        default_value = "info",
+        possible_values = &["trace", "debug","info","warn","error"]
+    )]
+    pub log_level: tracing::Level,
+}

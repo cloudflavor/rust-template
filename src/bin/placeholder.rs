@@ -13,8 +13,17 @@
 // limitations under the License.
 
 use anyhow::Result;
+use cloudflavor_rust_template::Opts;
+use structopt::StructOpt;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let opts = Opts::from_args();
+
+    let subscriber = tracing_subscriber::fmt::Subscriber::builder()
+        .with_max_level(opts.log_level)
+        .finish();
+    tracing::subscriber::set_global_default(subscriber)?;
+
     Ok(())
 }
